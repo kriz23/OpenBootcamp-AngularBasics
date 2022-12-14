@@ -315,5 +315,10 @@
 </div>
 
 <div class="content" role="main">
-  <h1>Hola, {{ name }}</h1>
+  <!--  <h1>¡Hola, {{ name }}!</h1>-->
+  <!--  Input para trabajar con NgModel -->
+  <input type="text" placeholder="Nombre del usuario" [(ngModel)]="user">
+
+  <app-saludo [user]="user" (mensajeEmitter)="recibirMensajeDelHijo($event)"></app-saludo>
+  <app-saludo (mensajeEmitter)="recibirMensajeDelHijo($event)"></app-saludo>
 </div>
