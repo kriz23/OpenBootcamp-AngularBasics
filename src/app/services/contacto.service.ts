@@ -1,29 +1,27 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 //Importamos la lista de contactos MOCK
-import {CONTACTOS} from '../mocks/contactos.mock';
-import {IContacto} from '../models/contacto.interface';
+import { CONTACTOS } from '../mocks/contactos.mock';
+import { IContacto } from '../models/contacto.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactoService {
-  constructor() {
+  constructor() {}
+
+  obtenerContactos(): Promise<IContacto[]> {
+    return Promise.resolve(CONTACTOS); // Nos devuelve un listado de contactos
   }
 
-  obtenerContactos(): IContacto[] {
-    return CONTACTOS; // Nos devuelve un listado de contactos
-  }
-
-  obtenerContactoPorID(id: number): IContacto | undefined {
-
+  obtenerContactoPorID(id: number): Promise<IContacto> | undefined {
     // Buscamos el contacto por ID dentro de la lista de CONTACTOS mockeados
     const contacto = CONTACTOS.find(
       (contacto: IContacto) => contacto.id === id
     );
 
     if (contacto) {
-      return contacto;
+      return Promise.resolve(contacto);
     } else {
       return;
     }
