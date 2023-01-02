@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ContactoService } from '../../services/contacto.service';
 import { IContacto } from '../../models/contacto.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lista-contactos',
   templateUrl: './lista-contactos.component.html',
   styleUrls: ['./lista-contactos.component.scss'],
 })
-export class ListaContactosComponent implements OnInit {
+export class ListaContactosComponent implements OnInit, OnDestroy {
   //Creamos una lista de contactos
   listaContactos: IContacto[] = [];
   contactoSeleccionado: IContacto | undefined;
+
+  //Subscripción de Servicio
+  subscription: Subscription | undefined;
 
   // Inyectamos en el constructor el servicio de Contactos
   constructor(private contactoService: ContactoService) {}
@@ -30,12 +34,14 @@ export class ListaContactosComponent implements OnInit {
 
   obtenerContacto(id: number) {
     // console.log(`Obtener info del contacto: ${id}`);
-    this.contactoService
+    this.subscription = this.contactoService
       .obtenerContactoPorID(id)
-      ?.then((contacto: IContacto) => (this.contactoSeleccionado = contacto))
-      .catch((error) =>
-        alert(`Ha habido un error al recuperar el contacto: ${error}`)
-      )
-      .finally(() => console.log('Petición de contacto por id terminada'));
+      ?.subscribe(
+        (contacto: IContacto) => (this.contactoSeleccionado = contacto)
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }
