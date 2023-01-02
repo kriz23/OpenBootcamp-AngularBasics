@@ -17,13 +17,25 @@ export class ListaContactosComponent implements OnInit {
 
   ngOnInit(): void {
     // Obtener la lista de contactos que nos brinda el servicio
-    this.listaContactos = this.contactoService.obtenerContactos();
+    this.contactoService
+      .obtenerContactos()
+      .then((lista: IContacto[]) => (this.listaContactos = lista))
+      .catch((error) =>
+        alert(`Ha habido un error al recuperar la lista de contactos: ${error}`)
+      )
+      .finally(() => console.log('Petición de lista de contactos terminada'));
 
     console.table(this.listaContactos);
   }
 
   obtenerContacto(id: number) {
     // console.log(`Obtener info del contacto: ${id}`);
-    this.contactoSeleccionado = this.contactoService.obtenerContactoPorID(id);
+    this.contactoService
+      .obtenerContactoPorID(id)
+      ?.then((contacto: IContacto) => (this.contactoSeleccionado = contacto))
+      .catch((error) =>
+        alert(`Ha habido un error al recuperar el contacto: ${error}`)
+      )
+      .finally(() => console.log('Petición de contacto por id terminada'));
   }
 }
