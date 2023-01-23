@@ -13,10 +13,12 @@ import { FormularioAnidadoComponent } from './components/forms/formulario-anidad
 import { FormularioArrayComponent } from './components/forms/formulario-array/formulario-array.component';
 import { FormularioValidadoComponent } from './components/forms/formulario-validado/formulario-validado.component';
 import { EjemploPipesComponent } from './components/ejemplo-pipes/ejemplo-pipes.component';
+import { EjemploAnimacionComponent } from './components/ejemplo-animacion/ejemplo-animacion.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Modulos angular material
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 // Pipes personalizados
 import { MultiplicaPipe } from './pipes/multiplica.pipe';
@@ -40,6 +42,7 @@ registerLocaleData(localeES); // Registramos el LOCALE_ID de 'es' para poder usa
     EjemploPipesComponent,
     MultiplicaPipe,
     CalcularPuntuacionPipe,
+    EjemploAnimacionComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ registerLocaleData(localeES); // Registramos el LOCALE_ID de 'es' para poder usa
     ReactiveFormsModule, // Necesario para los formularios reactivos
     // Importamos los módulos de AngularMaterial que usamos en los formularios
     MatFormFieldModule,
+    MatButtonModule,
     BrowserAnimationsModule,
   ],
   providers: [
